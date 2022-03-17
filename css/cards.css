@@ -1,0 +1,59 @@
+.produtos-cards{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #000000;
+}
+
+.produtos-cards img{
+    width: 212px;
+    height: 212px;
+}
+.produtos-cards-descricao{
+    font-size: 14px;
+    width: 220px;
+    text-align: center;
+    margin-top: 30px;
+}
+.produtos-cards-preco{
+    font-size: 36px;
+    margin-top: 15px;
+    color: #9400D3;
+}
+.produtos-cards-parcelamento{
+    font-size: 14px;
+    color: #9400D3;
+}
+/***************************************/
+.promocoes-cards{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #000000;
+}
+.promocoes-cards img{
+    width: 212px;
+    height: 212px;
+}
+.promocoes-cards-descricao{
+    font-size: 14px;
+    width: 220px;
+    text-align: center;
+    margin-top: 30px;
+}
+.promocoes-cards-preco-antigo{
+    margin-top: 15px;
+    text-decoration: line-through;
+}
+.promocoes-cards-preco{
+    font-size: 36px;
+    color: #9400D3;
+}
+.promocoes-cards-parcelamento{
+    font-size: 14px;
+    color: #9400D3;
+}
+
+
