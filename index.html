@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="./css/sobre.css">
     <link rel="stylesheet" href="./css/contatos.css">
     <link rel="stylesheet" href="./css/cards.css">
+    <script src="slideShow.js" defer></script>
     <title>OA-GAMES</title>
 </head>
 <body>
@@ -26,10 +27,14 @@
                 <a href="#sobre">Sobre</a>
                 <a href="#contatos">Contatos</a>
             </div>
-            <div class="destaques-container-cards">
-                <div class="destaques-cards"></div>
-                <div class="destaques-cards"></div>
-                <div class="destaques-cards"></div>
+            <div class="destques-container-slide">
+                <div class="action-button esquerda" id="previous"></div>
+                <div class="destaques-container-cards" id="destaques-container-cards">
+                    <!-- <div class="destaques-cards"></div>
+                    <div class="destaques-cards"></div>
+                    <div class="destaques-cards"></div> -->
+                </div>
+                <div class="action-button direita" id="next"></div>
             </div>
         </section>
         <section class="promocoes" id="promocoes">

@@ -31,9 +31,13 @@
 .destaques-container-cards{
     width: 1440px;
     height: 904px;
-    display: flex;
+    /* display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; */
+    /* background-color: blue; */
+    display: flex;
+    position: absolute;
+    background-color: brown;
 }
 .destaques-cards{
     background-color: #ffffff;
@@ -44,7 +48,33 @@
     transition: all .7s;
     margin-left: 15px;
     margin-right: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
+.destaques-cards img{
+    width: 50%;
+    height: 50%;
+}
+
 .destaques-cards:hover{
     box-shadow: 0px 0px 80px #9400D3;
+}
+.action-button{
+    color: #ffffff;
+    font-size: 50px;
+    z-index: 1;
+    width: 0; 
+    height: 0; 
+    border-top: 25px solid transparent;
+    border-bottom: 25px solid transparent;
+    border-left: 25px solid #4C4B63;
+}
+.destques-container-slide{
+    width: 1440px;
+    height: 904px;
+    display: flex;
+    background-color: blue;
+    justify-content: space-between;
 }
