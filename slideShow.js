@@ -73,5 +73,4 @@ const loadCards = (db, container) =>{
 }
 
 
-
-//loadCards(db, container)
+loadCards(db, container)

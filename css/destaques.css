@@ -28,20 +28,27 @@
     /* color: #9400D3; */
     box-shadow: #9400D3 0px 3px 0px;
 }
-.destaques-container-cards{
+.destques-container-slide{
     width: 1440px;
     height: 904px;
-    /* display: flex;
-    justify-content: center;
-    align-items: center; */
+    display: flex;
     /* background-color: blue; */
+    justify-content: space-between;
+    align-items: center;
+}
+.destaques-container-cards{
+    width: 1000px;
+    height: 600px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     display: flex;
     position: absolute;
-    background-color: brown;
+    /* background-color: brown; */
 }
 .destaques-cards{
     background-color: #ffffff;
-    width: 400px;
+    width: 200px;
     height: 600px;
     border-radius: 20px;
     border: 3px solid #9400D3;
@@ -57,24 +64,29 @@
     width: 50%;
     height: 50%;
 }
-
 .destaques-cards:hover{
     box-shadow: 0px 0px 80px #9400D3;
 }
 .action-button{
-    color: #ffffff;
-    font-size: 50px;
     z-index: 1;
-    width: 0; 
-    height: 0; 
+    width: 60px; 
+    height: 0;  
     border-top: 25px solid transparent;
     border-bottom: 25px solid transparent;
-    border-left: 25px solid #4C4B63;
-}
-.destques-container-slide{
-    width: 1440px;
-    height: 904px;
     display: flex;
-    background-color: blue;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+    transition: all 1s;
+    cursor: pointer;
+}
+.action-button:hover{
+   background-color: #9400D3; 
+   border-radius: 10px;
+   margin: 100px;
+}
+.action-button.direita{
+    border-left: 25px solid #ffffff ;
+}
+.action-button.esquerda{ 
+    border-right:25px solid #ffffff;
 }
