@@ -42,8 +42,10 @@
     height: 600px;
     display: flex;
     align-items: center;
+
     /* background-color: brown; */
     overflow: hidden;
+    /* gap: 44px; */
 }
 .destaques-cards{
     background-color: #ffffff;
@@ -52,12 +54,16 @@
     border-radius: 20px;
     border: 3px solid #9400D3;
     transition: all .7s;
-    margin-left: 35px;
+    margin-right: 47px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 20px;
+    transition: all .3s;
+}
+.destaques-cards:first-child{
+    margin-left: -100%;
 }
 .destaques-cards img{
     width: 50%;
@@ -68,6 +74,7 @@
     text-align: center;
     margin-top: 20px;
     margin-bottom: 20px;
+
 }
 .destaques-cards-preco{
     font-size: 44px;

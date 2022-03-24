@@ -11,7 +11,7 @@ const db = [
     {
         id: 2,  
         descricao: "Jogo The Last Of Us: Part II - PS4",   
-        preco: 2500, 
+        preco: 250, 
         parcelamento: 'ou 10x de 250 sem juros',
         imagem: './img/theLastOfUs.webp'
     },
@@ -38,7 +38,7 @@ const db = [
     },
     {
         id: 6,  
-        descricao: "Jogo Grand Theft Auto V - Premium Online Edition - PS4",   
+        descricao: "Jogo Grand Theft Auto",   
         preco: 350, 
         parcelamento: 'ou 10x de 35 sem juros',
         imagem: './img/gta.jpg'
@@ -72,5 +72,20 @@ const loadCards = (db, container) =>{
     container.replaceChildren(...cards)
 }
 
-
 loadCards(db, container)
+
+let listCards = document.querySelectorAll('.destaques-cards')
+
+const next = () => {
+    container.appendChild(listCards[0])
+    listCards = document.querySelectorAll('.destaques-cards')
+}
+
+const previous = () =>{
+    const lastCard = listCards[listCards.length - 1]
+    container.insertBefore(lastCard, listCards[0])
+    listCards = document.querySelectorAll('.destaques-cards')
+}
+
+document.getElementById('next').addEventListener('click', next)
+document.getElementById('previous').addEventListener('click', previous)
