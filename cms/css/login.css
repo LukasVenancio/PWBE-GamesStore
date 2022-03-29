@@ -1,0 +1,67 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Russo One', sans-serif;
+}
+body{
+    width: 100vw;
+    height: 100vh;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.container-form{
+    width: 600px;
+    height: 400px;
+    border: 3px solid #9400D3;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.container-form p{
+    font-size: 30px;
+    margin-bottom: 30px;
+    border-bottom: 3px solid #9400D3;
+}
+.formulario{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.formulario.botao{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.formulario.botao button{
+    width: 100px;
+    height: 40px;
+    border: 3px solid #9400D3;
+    border-radius: 15px;
+    background-color: #ffffff;
+    transition: all .7s;
+    font-size: 20px;
+}
+.formulario.botao button:hover{
+    background-color: #9400D3;
+}
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+form label{
+    font-size: 24px;
+}
+form input{
+    width: 300px;
+    height: 50px;
+    border: 3px solid #9400D3;
+    border-radius: 20px;
+    text-align: center;
+    font-size: 20px;
+}
