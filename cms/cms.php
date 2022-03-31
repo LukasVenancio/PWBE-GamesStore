@@ -21,22 +21,24 @@
     </header>
     <div class="container-icons">
         <div class="icon produtos">
-            <img src="./img/video-game.png" alt="">
+            <img src="./img/video-game.png" alt="" title="Adm. Games">
         </div>
         <div class="icon categorias">
-            <img src="./img/categories.png" alt="">
+            <a href="contatos.php">
+                <img src="./img/categories.png" alt="" title="Adm. Categorias">
+            </a>    
         </div>
         <div class="icon contatos">
-            <img src="./img/email.png" alt="">
+            <img src="./img/email.png" alt="" title="Contatos">
         </div>
         <div class="icon usuarios">
-            <img src="./img/people.png" alt="">
+            <img src="./img/people.png" alt="" title="Usuários">
         </div>
         <div class="usuario">
             <p>Bem vindo, Lukas</p>
-            <img src="./img/logout-simple.png" alt="">
+            <img src="./img/logout-simple.png" alt="" title="Logout">
         </div>
     </div>
-    <div class="area-container"></div>
+    <!-- <div class="area-container"></div> -->
 </body>
 </html>
