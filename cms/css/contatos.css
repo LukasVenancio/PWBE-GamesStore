@@ -13,6 +13,7 @@ table{
     height: 90%;
     display: flex;
     justify-content: center;
+    text-decoration: none;
 }
 td{
     height: 7vh;

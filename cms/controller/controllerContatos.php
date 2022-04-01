@@ -18,5 +18,25 @@ function listarContatos(){
     }
 }
 
+function excluirContato($id){
+    
+    /*Validação do id que foi informado. */
+    if($id != 0 && !empty($id) && is_numeric($id)){
+
+        /*Verificando se foi possível deletar o contato.*/
+        if(deleteContato($id)){
+            return true;
+        
+        }else{
+            return array('idErro' => 3,
+                        'message' => 'O Data Base não pôde excluir o registro.');
+        }
+        
+    }else{
+        return array('idErro' => 4,
+                    'message' => 'ID inválido.');
+    }
+}
+
 
 ?>

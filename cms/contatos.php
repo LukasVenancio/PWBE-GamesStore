@@ -31,7 +31,9 @@
                 <td><?=$contato['nome']?></td>
                 <td><?=$contato['email']?></td>
                 <td>
-                    <img src="img/lata-de-lixo.png" alt="">
+                    <a href="router.php?component=contatos&action=deletar&id=<?=$contato['id']?>">
+                        <img src="img/lata-de-lixo.png" alt="">
+                    </a>
                     <img src="img/magnify.png" alt="">
                 </td>
             </tr>

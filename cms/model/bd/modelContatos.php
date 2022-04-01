@@ -1,7 +1,7 @@
 <?php
 /*Arquivo responsável por manipular diretamente os dados do Data Base. */
 
-require_once('conexaoMysql.php');
+require_once('./model/bd/conexaoMysql.php');
 
 function selectAllContatos(){
     
@@ -36,6 +36,31 @@ function selectAllContatos(){
 
         return $dados;
     }
+}
+
+function deleteContato($id){
+
+    $conexao = conectarMysql();
+    $sql = "delete from tblcontatos where idcontato = " . $id . ";";
+
+    $resposta = (boolean) false;
+
+    /*Executando o script no Data Base (passando como parâmetros o próprio db e
+    o script que será executado) e verificando se o script está correto através do if. */
+    if(mysqli_query($conexao, $sql)){
+
+        /*Verificação de uma atualização no db(se uma linha foi deletada),
+         ou seja, se o db aceitou o script. */
+         if(mysqli_affected_rows($conexao)){
+             $resposta = true;
+         }
+    }
+
+    fecharConexaoMysql($conexao);
+
+    return $resposta;
+
+
 }
 
 
