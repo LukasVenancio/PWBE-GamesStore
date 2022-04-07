@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,12 +24,14 @@
             <img src="./img/video-game.png" alt="" title="Adm. Games">
         </div>
         <div class="icon categorias">
-            <a href="contatos.php">
+            <a href="categorias.php">
                 <img src="./img/categories.png" alt="" title="Adm. Categorias">
-            </a>    
+            </a>        
         </div>
         <div class="icon contatos">
-            <img src="./img/email.png" alt="" title="Contatos">
+            <a href="contatos.php">
+                <img src="./img/email.png" alt="" title="Contatos">
+            </a>    
         </div>
         <div class="icon usuarios">
             <img src="./img/people.png" alt="" title="Usuários">
