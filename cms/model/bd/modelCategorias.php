@@ -105,6 +105,28 @@ require_once('model/bd/conexaoMysql.php');
 
     }
 
+    function updateCategoria($dadosCategoria){
+        $resposta = (boolean) false;
+        
+        $conexao = conectarMysql();
+        $sql = "update tblcategorias set nome = '".$dadosCategoria['nome']."'
+                where idcategoria = ".$dadosCategoria['idcategoria'].";";
+
+        /*Executando o script e verificando se o resultado foi positivo.*/
+        if(mysqli_query($conexao, $sql)){
+
+            /*Verificando se houve alguma linha afetada (adicionada) no DB
+            (serve como uma segunda linha de validação do script). */
+            if(mysqli_affected_rows($conexao)){
+                $resposta = true;
+            }
+        }                            
+        
+        fecharConexaoMysql($conexao);
+
+        return $resposta;
+    }
+
 
 
 

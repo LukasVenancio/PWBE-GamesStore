@@ -5,7 +5,7 @@ serem enviados ao arquivo Moodel.*/
 
 require_once('model/bd/modelCategorias.php');
 
-    function listarCategorias(){
+    function listarCategoria(){
         
         /*Executando função do arquivo model que retorna as 
         categorias que existem no Data Base.*/
@@ -20,7 +20,7 @@ require_once('model/bd/modelCategorias.php');
         }
     }
 
-    function excluirCategorias($id){
+    function excluirCategoria($id){
 
         if(!empty($id) && is_numeric($id)){
 
@@ -39,7 +39,7 @@ require_once('model/bd/modelCategorias.php');
 
     }
 
-    function inserirCategorias($dadosCategoria){
+    function inserirCategoria($dadosCategoria){
 
         /*Verificando se chegaram dados.*/
         if(!empty($dadosCategoria)){
@@ -83,6 +83,40 @@ require_once('model/bd/modelCategorias.php');
         }else{
             return array('idErro'   => 4,
                          'message'  => 'ID inválido.');
+        }
+    }
+
+    function atualizarCategoria($dadosCategorias, $id){
+        
+        /*Verificando se chegaram dados.*/
+        if(!empty($dadosCategorias)){
+
+            /*Verificando se o campo obrigatório 'nome' está preenchido.*/
+            if(!empty($dadosCategorias['txtNome'])){
+
+                if(!empty($id) && is_numeric($id)){
+                    
+                    $arrayDados = array(
+                        "idcategoria" => $id,
+                        "nome"        => $dadosCategorias['txtNome']
+                    );
+
+                    if(updateCategoria($arrayDados)){
+                        return true;
+                    
+                    }else{
+                        return array('idErro' => 1,
+                                    'message' => 'Não foi possível inserir os dados no Data Base.');
+                    }
+                }else{
+                    return array('idErro'   => 4,
+                            'message'  => 'ID inválido.');
+                }
+ 
+            }else{
+                return array('idErro' => 2,
+                                'message' => 'Existem campos obrigatórios que não foram preenchidos.');
+            }
         }
     }
 ?>

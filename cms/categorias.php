@@ -1,8 +1,7 @@
 <?php
     require_once('./cms.php');
 
-    $id = (String) null;
-    $nome = (String) null;
+    $form = "router.php?component=categorias&action=inserir";
 
     if(session_status()){
 
@@ -10,6 +9,10 @@
 
             $id = $_SESSION['dadosCategorias']['id'];
             $nome = $_SESSION['dadosCategorias']['nome'];
+
+            $form = "router.php?component=categorias&action=editar&id=". $id;
+
+            unset($_SESSION['dadosCategorias']);
         }
     }
 ?>
@@ -24,10 +27,10 @@
 <body>
     <div class="area-container">
         <div class="form-container">
-            <form action="router.php?component=categorias&action=inserir" method="post" name="formCategoria">
+            <form action="<?=$form?>" method="post" name="formCategoria">
                 <div class="form-superior">
                     <label>Nome:</label>
-                    <input type="text" name="txtNome" value="<?=$nome?>">
+                    <input type="text" name="txtNome" value="<?=isset($nome)?$nome:null?>">
                 </div>
                 <div class="form-inferior">
                     <input type="submit" value="Salvar">
@@ -43,7 +46,7 @@
                 <?php
                         require_once('controller/controllerCategorias.php');
 
-                        $categorias = listarCategorias();
+                        $categorias = listarCategoria();
 
                         foreach($categorias as $categoria){
 

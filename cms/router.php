@@ -47,7 +47,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET'){
         if($action == 'inserir'){
 
             /*Executando função da controller. */
-            $resposta = inserirCategorias($_POST);
+            $resposta = inserirCategoria($_POST);
 
             if(is_bool($resposta)){
 
@@ -70,7 +70,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET'){
 
             $id = $_GET['id'];
 
-            $resposta = excluirCategorias($id);
+            $resposta = excluirCategoria($id);
 
             if(is_bool($resposta)){
 
@@ -112,6 +112,31 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET'){
             
 
             
+        }elseif($action == 'editar'){
+            
+            $id = $_GET['id'];
+
+            $dados = $_POST;
+            
+            /*Executando função da controller. */
+            $resposta = atualizarCategoria($dados, $id);
+
+            if(is_bool($resposta)){
+
+                if($resposta){
+                    
+                    echo("<script>
+                            alert('Registro atualizado com sucesso!')
+                            window.location.href = 'categorias.php'
+                        </script>");
+
+                }elseif(is_array($resposta)){
+                    echo("<script>
+                            alert('".$resposta['message']."')
+                            window.history.back()
+                        </script>");
+                }
+            }
         }
 
     }
