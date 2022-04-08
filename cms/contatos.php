@@ -15,7 +15,7 @@
             <tr>
                 <td>Nome</td>
                 <td>Email</td>
-                <td>Ação</td>
+                <td>Opções</td>
             </tr>
 
             <?php

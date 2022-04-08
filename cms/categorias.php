@@ -1,14 +1,17 @@
 <?php
     require_once('./cms.php');
 
+    $id = (String) null;
+    $nome = (String) null;
 
-    /**create table tblcategorias(
-				idcategoria int not null auto_increment primary key,
-                nome varchar(50) not null);
-show tables;
+    if(session_status()){
 
-insert into tblcategorias(nome)
-					value('Terror'); */
+        if(!empty($_SESSION['dadosCategorias'])){
+
+            $id = $_SESSION['dadosCategorias']['id'];
+            $nome = $_SESSION['dadosCategorias']['nome'];
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -21,10 +24,10 @@ insert into tblcategorias(nome)
 <body>
     <div class="area-container">
         <div class="form-container">
-            <form action="router.php?component=categorias&action=inserir" method="post">
+            <form action="router.php?component=categorias&action=inserir" method="post" name="formCategoria">
                 <div class="form-superior">
                     <label>Nome:</label>
-                    <input type="text" name="txtNome">
+                    <input type="text" name="txtNome" value="<?=$nome?>">
                 </div>
                 <div class="form-inferior">
                     <input type="submit" value="Salvar">
@@ -35,7 +38,7 @@ insert into tblcategorias(nome)
             <table>
                 <tr>
                     <td>Nome</td>
-                    <td>Ação</td>
+                    <td>Opções</td>
                 </tr>
                 <?php
                         require_once('controller/controllerCategorias.php');
@@ -48,8 +51,12 @@ insert into tblcategorias(nome)
                 <tr>
                     <td><?=$categoria['nome']?></td>
                     <td>
-                        <img src="img/lata-de-lixo.png" alt="" title="Excluir">
-                        <img src="img/editar.png" alt="" title="Editar">
+                        <a onclick="return confirm('Deseja excluir o registro?')" href="router.php?component=categorias&action=deletar&id=<?=$categoria['id']?>">
+                            <img src="img/lata-de-lixo.png" alt="" title="Excluir">
+                        </a>
+                        <a href="router.php?component=categorias&action=buscar&id=<?=$categoria['id']?>">
+                            <img src="img/editar.png" alt="" title="Editar">
+                        </a>
                     </td>
                 </tr>
                 <?php

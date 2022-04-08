@@ -20,7 +20,22 @@ require_once('model/bd/modelCategorias.php');
         }
     }
 
-    function excluirCategorias(){
+    function excluirCategorias($id){
+
+        if(!empty($id) && is_numeric($id)){
+
+            if(deleteCategoria($id)){
+                return true;
+            
+            }else{
+                return array('idErro'   => 3,
+                             'message'  => 'O Data Base não pôde excluir o registro.');
+            }
+        
+        }else{
+            return array('idErro'   => 4,
+                         'message'  => 'ID inválido.');   
+        }
 
     }
 
@@ -33,10 +48,10 @@ require_once('model/bd/modelCategorias.php');
             if(!empty($dadosCategoria['txtNome'])){
 
                 $arrayDados = array(
-                        "nome" => $dadosCategoria['nome']
+                        "nome" => $dadosCategoria['txtNome']
                 );
 
-                if(insertCategoria($dadosCategoria)){
+                if(insertCategoria($arrayDados)){
                     return true;
                 
                 }else{
@@ -50,5 +65,24 @@ require_once('model/bd/modelCategorias.php');
             }
         }
 
+    }
+
+
+    function buscarCategoria($id){
+
+        if(!empty($id) && is_numeric($id)){
+
+            $resposta = selectByIdCategoria($id);
+
+            if(!empty($resposta)){
+                return $resposta;
+            }else{
+                return false;
+            }
+        
+        }else{
+            return array('idErro'   => 4,
+                         'message'  => 'ID inválido.');
+        }
     }
 ?>

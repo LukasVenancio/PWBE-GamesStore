@@ -59,6 +59,52 @@ require_once('model/bd/conexaoMysql.php');
     
     }
 
+    function deleteCategoria($id){
+
+        $conexao = conectarMysql();
+        $sql = "delete from tblcategorias where idcategoria = ". $id . ";";
+
+        $resposta = (boolean) false;
+
+        /*Executando o script no DB e verificando se o 
+        retorno foi positivo através if().*/
+        if(mysqli_query($conexao, $sql)){
+            
+            /*Verificando se alguma linha foi afetada no Data Base. */
+            if(mysqli_affected_rows($conexao)){
+                $resposta = true;
+            }
+        }
+
+        fecharConexaoMysql($conexao);
+
+        return $resposta;
+    }
+
+    function selectByIdCategoria($id){
+
+        $conexao = conectarMysql();
+        $sql = "select * from tblcategorias where idcategoria = " . $id . ";";
+
+        $result = mysqli_query($conexao, $sql);
+
+        if($result){
+
+            if($resultArray = mysqli_fetch_assoc($result)){
+
+                $dados = array(
+                    "id" => $resultArray['idcategoria'],
+                    "nome" => $resultArray['nome']
+                );
+            }
+        }
+
+        fecharConexaoMysql($conexao);
+
+        return $dados;
+
+    }
+
 
 
 
