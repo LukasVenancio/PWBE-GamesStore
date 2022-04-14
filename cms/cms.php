@@ -34,7 +34,9 @@
             </a>    
         </div>
         <div class="icon usuarios">
-            <img src="./img/people.png" alt="" title="Usuários">
+            <a href="usuarios.php">
+                <img src="./img/people.png" alt="" title="Usuários">
+            </a>
         </div>
         <div class="usuario">
             <p>Bem vindo, Lukas</p>

@@ -139,6 +139,32 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET'){
             }
         }
 
+    }elseif($component == 'usuarios'){
+
+        if($action == 'inserir'){
+            
+            $resposta = inserirUsuarios($_POST);
+
+            if(is_bool($resposta)){
+
+                if($resposta){
+                    
+                    echo("<script>
+                            alert('Registro inserido com sucesso!')
+                            window.location.href = 'usuarios.php'
+                        </script>");
+
+                }elseif(is_array($resposta)){
+                    echo("<script>
+                            alert('".$resposta['message']."')
+                            window.history.back()
+                        </script>");
+                }
+            }
+            
+        }
+
+
     }
 
 }
