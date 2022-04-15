@@ -1,5 +1,24 @@
 <?php
-    require_once('./cms.php')
+    require_once('./cms.php');
+
+    $form = "router.php?component=usuarios&action=inserir";
+
+    if(session_status()){
+
+        if(!empty($_SESSION['dadosUsuarios'])){
+
+            $id = $_SESSION['dadosUsuarios']['id'];
+            $nome = $_SESSION['dadosUsuarios']['nome'];
+            $login = $_SESSION['dadosUsuarios']['login'];
+            $senha = $_SESSION['dadosUsuarios']['senha'];
+    
+            $form = "router.php?component=usuarios&action=editar&id=" . $id;
+    
+            unset($_SESSION['dadosUsuarios']);
+        }
+
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -12,23 +31,23 @@
 <body>
     <div class="area-container">
         <div class="form-container">
-            <form action="router.php?component=usuarios&action=inserir">
+            <form action="<?=$form?>" method="post" name="formUsuarios">
                 <div class="label">
                     <label>Nome:</label>
                 </div>
-                <input type="text" name="txtNome">
+                <input type="text" name="txtNome" value="<?=isset($nome)?$nome:null?>">
                 <div class="label">
                     <label>Login:</label>
                 </div>
-                <input type="text" name="txtLogin">
+                <input type="text" name="txtLogin" value="<?=isset($login)?$login:null?>">
                 <div class="label">
                     <label>Senha:</label>
                 </div>
-                <input type="password" name="txtSenha">
+                <input type="password" name="txtSenha" value="<?=isset($senha)?$senha:null?>">
                 <div class="label">
                     <label>Confirmar senha:</label>
                 </div>
-                <input type="password" name="txtSegundaSenha">
+                <input type="password" name="txtSegundaSenha" value="<?=isset($senha)?$senha:null?>">
                 <input type="submit" value="Salvar" class="form-button">
             </form>
         </div>
@@ -37,7 +56,6 @@
                 <tr>
                     <td>Nome</td>
                     <td>Login</td>
-                    <td>Senha</td>
                     <td>Opções</td>
                 </tr>
 
@@ -52,12 +70,11 @@
                 <tr>
                     <td><?=$usuario['nome']?></td>
                     <td><?=$usuario['login']?></td>
-                    <td><?=$usuario['senha']?></td>
                     <td>
-                        <a href="">
+                        <a onclick="return confirm('Deseja excluir o registro?')" href="router.php?component=usuarios&action=deletar&id=<?=$usuario['id']?>">
                             <img src="img/lata-de-lixo.png" alt="">
                         </a>
-                        <a href="">
+                        <a href="router.php?component=usuarios&action=buscar&id=<?=$usuario['id']?>">
                             <img src="img/editar.png" alt="">
                         </a>
                     </td>

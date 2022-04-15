@@ -4,6 +4,7 @@ Será responsável por encaminhar as solicitações para a controller. */
 
 require_once('controller/controllerContatos.php');
 require_once('controller/controllerCategorias.php');
+require_once('controller/controllerUsuarios.php');
 
 $action = (string) null;
 $component = (string) null;
@@ -57,13 +58,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET'){
                             alert('Registro inserido com sucesso!')
                             window.location.href = 'categorias.php'
                         </script>");
-
-                }elseif(is_array($resposta)){
+                }
+                
+            }elseif(is_array($resposta)){
                     echo("<script>
                             alert('".$resposta['message']."')
                             window.history.back()
                         </script>");
-                }
+                
             }
             
         }elseif($action == 'deletar'){
@@ -129,13 +131,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET'){
                             alert('Registro atualizado com sucesso!')
                             window.location.href = 'categorias.php'
                         </script>");
+                }
 
-                }elseif(is_array($resposta)){
+            }elseif(is_array($resposta)){
                     echo("<script>
                             alert('".$resposta['message']."')
                             window.history.back()
                         </script>");
-                }
+                
             }
         }
 
@@ -153,20 +156,78 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET'){
                             alert('Registro inserido com sucesso!')
                             window.location.href = 'usuarios.php'
                         </script>");
+                }
 
-                }elseif(is_array($resposta)){
+            }elseif(is_array($resposta)){
                     echo("<script>
                             alert('".$resposta['message']."')
                             window.history.back()
                         </script>");
-                }
+                
             }
             
+        
+        }elseif($action == 'deletar'){
+
+            $id = $_GET['id'];
+
+            $resposta = excluirUsuarios($id);
+
+            if(is_bool($resposta)){
+
+                if($resposta){
+                    echo("<script>
+                            alert('Registro excluído com sucesso!')
+                            window.location.href = 'usuarios.php'
+                        </script>");
+                }
+            
+            }elseif(is_array($resposta)){
+                echo("<script>
+                        alert('".$resposta['message']."')
+                        window.history.back()
+                    </script>");
+            }
+
+        
+        }elseif($action == 'buscar'){
+
+            $id = $_GET['id'];
+
+            $dados = buscarUsuarios($id);
+
+            session_start();
+
+            $_SESSION['dadosUsuarios'] = $dados;
+
+            require_once('usuarios.php');
+        
+        }elseif($action == 'editar'){
+
+            $id = $_GET['id'];
+            $dados  = $_POST;
+
+            $resposta = atualizarUsuarios($dados, $id);
+            
+            if(is_bool($resposta)){
+
+                if($resposta){
+                    
+                    echo("<script>
+                            alert('Registro atualizado com sucesso!')
+                            window.location.href = 'usuarios.php'
+                        </script>");
+                }
+
+            }elseif(is_array($resposta)){
+                    echo("<script>
+                            alert('".$resposta['message']."')
+                            window.history.back()
+                        </script>");
+                
+            }
         }
-
-
     }
-
 }
 
 

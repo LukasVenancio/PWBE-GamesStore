@@ -52,6 +52,73 @@
         fecharConexaoMysql($conexao);
         return $response;
     }
+
+    function deleteUsuarios($id){
+
+        $response = (boolean) false;
+
+        $conexao = conectarMysql();
+        $sql = "delete from tblusuarios where idusuario =". $id .";";
+
+        if(mysqli_query($conexao, $sql)){
+
+            if(mysqli_affected_rows($conexao)){
+                $response = true;
+            }
+        }
+
+        fecharConexaoMysql($conexao);
+        return $response;
+    }
+
+    function selectByIdUsuario($id){
+
+        $conexao = conectarMysql();
+        $sql = "select * from tblusuarios where idusuario =" .$id.";";
+
+        $dados = mysqli_query($conexao, $sql);
+
+        if($dados){
+
+            if($dadosArray = mysqli_fetch_assoc($dados)){
+
+                $result = array(
+                    "id"    => $dadosArray['idusuario'],
+                    "nome"  => $dadosArray['nome'],
+                    "login" => $dadosArray['login'],
+                    "senha" => $dadosArray['senha']
+                );
+            }
+        }
+
+        fecharConexaoMysql($conexao);
+
+        return $result;
+    }
+
+    function updateUsuarios($dados){
+        
+        $response = (boolean) false;
+
+        $conexao = conectarMysql();
+        $sql = "update tblusuarios set 
+                            nome ='".$dados['nome']."', 
+                            login='".$dados['login']."',
+                            senha='".$dados['senha']."' 
+                where idusuario =".$dados['id'].";";
+
+        if(mysqli_query($conexao, $sql)){
+
+            if(mysqli_affected_rows($conexao)){
+                $response = true;
+            }
+        }
+
+        fecharConexaoMysql($conexao);
+        return $response;
+
+
+    }
     
 
 
