@@ -39,8 +39,11 @@
         $sql = "insert into tblusuarios(nome, login, senha)
                 values(
                         '".$dados['nome']."',
-                        '".$dados['login']."', 
-                        '".$dados['senha']."' );";
+                        '".$dados['login']."',  
+                        md5('".$dados['senha']."') );";
+
+        // var_dump($sql);
+        // die;                
 
         if(mysqli_query($conexao, $sql)){
 
@@ -104,7 +107,7 @@
         $sql = "update tblusuarios set 
                             nome ='".$dados['nome']."', 
                             login='".$dados['login']."',
-                            senha='".$dados['senha']."' 
+                            senha= md5('".$dados['senha']."')  
                 where idusuario =".$dados['id'].";";
 
         if(mysqli_query($conexao, $sql)){

@@ -43,11 +43,11 @@
                 <div class="label">
                     <label>Senha:</label>
                 </div>
-                <input type="password" name="txtSenha" value="<?=isset($senha)?$senha:null?>">
+                <input type="password" name="txtSenha" value="">
                 <div class="label">
                     <label>Confirmar senha:</label>
                 </div>
-                <input type="password" name="txtSegundaSenha" value="<?=isset($senha)?$senha:null?>">
+                <input type="password" name="txtSegundaSenha" value="">
                 <input type="submit" value="Salvar" class="form-button">
             </form>
         </div>
