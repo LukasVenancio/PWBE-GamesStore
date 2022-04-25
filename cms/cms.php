@@ -21,7 +21,9 @@
     </header>
     <div class="container-icons">
         <div class="icon produtos">
-            <img src="./img/video-game.png" alt="" title="Adm. Games">
+            <a href="produtos.php">
+                <img src="./img/video-game.png" alt="" title="Adm. Games">
+            </a>
         </div>
         <div class="icon categorias">
             <a href="categorias.php">

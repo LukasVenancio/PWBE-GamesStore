@@ -5,6 +5,7 @@ Será responsável por encaminhar as solicitações para a controller. */
 require_once('controller/controllerContatos.php');
 require_once('controller/controllerCategorias.php');
 require_once('controller/controllerUsuarios.php');
+require_once('controller/controllerProdutos.php');
 
 $action = (string) null;
 $component = (string) null;
@@ -227,6 +228,20 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET'){
                 
             }
         }
+    
+    }elseif($component == 'produtos'){
+
+        if($action == 'inserir'){
+            
+            if(isset($_FILES) && !empty($_FILES)){
+
+                $resposta = inserirProdutos($_POST, $_FILES);
+            
+            }else{
+                $resposta = inserirProdutos($_POST, null);
+            }
+        }
+        
     }
 }
 
