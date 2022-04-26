@@ -233,12 +233,30 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET'){
 
         if($action == 'inserir'){
             
-            if(isset($_FILES) && !empty($_FILES)){
+            // if(isset($_FILES) && !empty($_FILES)){
 
-                $resposta = inserirProdutos($_POST, $_FILES);
+            //     $resposta = inserirProdutos($_POST, $_FILES);
             
-            }else{
-                $resposta = inserirProdutos($_POST, null);
+            // }else{
+            //     $resposta = inserirProdutos($_POST, null);
+            // }
+
+            $resposta = insertProdutos($_POST, $_FILES);
+
+            if(is_bool($resposta)){
+
+                if($resposta){
+                    echo("<script>
+                            alert('Registro inserido com sucesso!')
+                            window.location.href = 'produtos.php'
+                        </script>");
+                }
+
+            }elseif(is_array($resposta)){
+                echo("<script>
+                            alert('".$resposta['message']."')
+                            window.history.back()
+                        </script>");
             }
         }
         
