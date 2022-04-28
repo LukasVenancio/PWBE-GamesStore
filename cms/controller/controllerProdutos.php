@@ -19,7 +19,7 @@
                     $resultadoUpload = uploadFile($file['fleFoto']);
 
                     if(!is_array($resultadoUpload)){
-                        
+
                         $arrayDados = array(
 
                             "descricao" => $dados['txtDescricao'],
@@ -64,6 +64,24 @@
 
         }else{
             return false;
+        }
+    }
+
+    function excluirProdutos($id){
+
+        if(!empty($id) && is_numeric($id)){
+
+            if(deleteProduto($id)){
+                return true;
+            
+            }else{
+                return array('idErro'   => 3,
+                             'message'  => 'O Data Base não pôde excluir o registro.');
+            }
+        
+        }else{
+            return array('idErro'   => 4,
+                         'message'  => 'ID inválido.');
         }
     }
 ?>

@@ -54,4 +54,24 @@
         return $resposta;
     }
 
+    function deleteProduto($id){
+
+        $conexao = conectarMysql();
+        $sql = "delete from tblprodutos where idproduto = ". $id .";";
+
+        $resposta = (boolean) false;
+
+        if(mysqli_query($conexao, $sql)){
+
+            if(mysqli_affected_rows($conexao)){
+
+                $resposta = true;
+            }
+        }
+
+        fecharConexaoMysql($conexao);
+
+        return $resposta;
+    }
+
 ?>

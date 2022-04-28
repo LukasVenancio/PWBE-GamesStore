@@ -61,13 +61,13 @@
                 <tr>
                     <td><?=$produto['descricao']?></td>
                     <td class="td-imagem">
-                        <!-- <img src="arquivos/66f2e15f72f4e83d01b25ab15157db31.png" alt=""> -->
-                        <?=$produto['imagem']?>
+                        <img src="arquivos/<?=$produto['imagem']?>" alt="">
+                        
                     </td>
                     <td><?=$produto['preco']?></td>
                     <td><?=$produto['desconto']?></td>
                     <td class="td-opcoes">
-                    <a onclick="return confirm('Deseja excluir o registro?')" >
+                    <a onclick="return confirm('Deseja excluir o registro?')" href="router.php?component=produtos&action=deletar&id=<?=$produto['id']?>">
                             <img src="img/lata-de-lixo.png" alt="" title="Excluir">
                         </a>
                         <a>

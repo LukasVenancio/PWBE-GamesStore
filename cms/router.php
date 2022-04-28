@@ -241,7 +241,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET'){
             //     $resposta = inserirProdutos($_POST, null);
             // }
 
-            $resposta = insertProdutos($_POST, $_FILES);
+            $resposta = inserirProdutos($_POST, $_FILES);
 
             if(is_bool($resposta)){
 
@@ -257,6 +257,28 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET'){
                             alert('".$resposta['message']."')
                             window.history.back()
                         </script>");
+            }
+        
+        }elseif($action == 'deletar'){
+            
+            $id = $_GET['id'];
+
+            $resposta = excluirProdutos($id);
+
+            if(is_bool($resposta)){
+
+                if($resposta){
+                    echo("<script>
+                            alert('Registro excluído com sucesso!')
+                             window.location.href = 'produtos.php'
+                         </script>");
+                }
+            
+            }elseif(is_array($resposta)){
+                echo("<script>
+                        alert('".$resposta['message']."')
+                        window.history.back()
+                    </script>");
             }
         }
         
