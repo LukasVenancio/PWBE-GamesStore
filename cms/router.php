@@ -260,10 +260,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET'){
             }
         
         }elseif($action == 'deletar'){
-            
-            $id = $_GET['id'];
 
-            $resposta = excluirProdutos($id);
+            $produto = array(
+                "id"    => $_GET['id'],
+                "image" => $_GET['image']
+            );
+
+            $resposta = excluirProdutos($produto);
 
             if(is_bool($resposta)){
 
@@ -280,6 +283,18 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET'){
                         window.history.back()
                     </script>");
             }
+        
+        }elseif($action == 'buscar'){
+
+            $id = $_GET['id'];
+
+            $dados = buscarProdutos($id);
+
+            session_start();
+            $_SESSION['dadosProdutos'] = $dados;
+
+            require_once('produtos.php');
+
         }
         
     }

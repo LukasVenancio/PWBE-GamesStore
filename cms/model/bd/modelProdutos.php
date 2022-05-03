@@ -74,4 +74,29 @@
         return $resposta;
     }
 
+    function selectByIdProdutos($id){
+
+        $conexao = conectarMysql();
+        $sql = "select * from tblprodutos where idproduto = " . $id . ";";
+
+        $result = mysqli_query($conexao, $sql);
+
+        if($result){
+
+            if($resultArray = mysqli_fetch_assoc($result)){
+                $dados = array(
+                    "id"        => $resultArray['idproduto'],
+                    "descricao" => $resultArray['descricao'],
+                    "imagem"    => $resultArray['imagem'],
+                    "preco"     => $resultArray['preco'],
+                    "desconto"  => $resultArray['desconto']
+                );
+            }
+        }
+
+        fecharConexaoMysql($conexao);
+
+        return $dados;
+    }
+
 ?>

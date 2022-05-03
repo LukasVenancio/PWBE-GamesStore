@@ -1,5 +1,25 @@
 <?php
     require_once('./cms.php');
+
+    $foto = (string) null;
+
+    $form = "router.php?component=produtos&action=inserir";
+
+    if(session_status()){
+
+        if(!empty($_SESSION['dadosProdutos'])){
+
+            $id =           $_SESSION['dadosProdutos']['id'];
+            $descricao =    $_SESSION['dadosProdutos']['descricao'];
+            $imagem =       $_SESSION['dadosProdutos']['imagem'];
+            $preco =        $_SESSION['dadosProdutos']['preco'];
+            $desconto =     $_SESSION['dadosProdutos']['desconto'];
+
+            $form = "router.php?component=produtos&action=editar&id=" . $id;
+
+            unset($_SESSION['dadosProdutos']);
+        }
+    }
 ?>    
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -16,24 +36,24 @@
                 
                 <div class="container-descricao linha">
                     <label>Descrição:</label>
-                    <input type="text" name="txtDescricao">
+                    <input type="text" name="txtDescricao" value="<?=isset($descricao)?$descricao:null?>">
                 </div>
 
                 <div class="container-foto linha">
                     <label>Selecione uma imagem:</label>
                     <!-- enctype = multipart/form-data  é obrigatório para 
                     fazer upload de formatos de arquivos para o back-end -->
-                    <input type="file" name="fleFoto" accept=".jpg, .png, .jpeg, .gif">
+                    <input type="file" name="fleFoto" accept=".jpg, .png, .jpeg, .gif" value="<?=isset($imagem)?$imagem:null?>">
                 </div>
 
                 <div class="container-preco linha">
                     <label>Preço:</label>
-                    <input type="text" name="txtPreco">
+                    <input type="text" name="txtPreco" value="<?=isset($preco)?$preco:null?>">
                 </div>
 
                 <div class="container-desconto linha">
                     <label>Desconto:</label>
-                    <input type="text" name="txtDesconto">
+                    <input type="text" name="txtDesconto" value="<?=isset($desconto)?$desconto:null?>">
                 </div>
 
                 <input type="submit" value="salvar" class="salvar">
@@ -57,20 +77,22 @@
 
                     foreach($dados as $produto){
 
+                        $foto = $produto['imagem'];
+
                 ?>
                 <tr>
                     <td><?=$produto['descricao']?></td>
                     <td class="td-imagem">
-                        <img src="arquivos/<?=$produto['imagem']?>" alt="">
+                        <img src="arquivos/<?=$foto?>" alt="">
                         
                     </td>
                     <td><?=$produto['preco']?></td>
                     <td><?=$produto['desconto']?></td>
                     <td class="td-opcoes">
-                    <a onclick="return confirm('Deseja excluir o registro?')" href="router.php?component=produtos&action=deletar&id=<?=$produto['id']?>">
+                    <a onclick="return confirm('Deseja excluir o registro?')" href="router.php?component=produtos&action=deletar&id=<?=$produto['id']?>&image=<?=$foto?>">
                             <img src="img/lata-de-lixo.png" alt="" title="Excluir">
                         </a>
-                        <a>
+                        <a href="router.php?component=produtos&action=buscar&id=<?=$produto['id']?>&image=<?=$foto?>">
                             <img src="img/editar.png" alt="" title="Editar">
                         </a>
                     </td>
