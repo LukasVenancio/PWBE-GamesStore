@@ -1,7 +1,8 @@
 <?php
     require_once('./cms.php');
+    require_once('./model/config.php');
 
-    $foto = (string) null;
+    $imagem = (string) null;
 
     $form = "router.php?component=produtos&action=inserir";
 
@@ -15,7 +16,7 @@
             $preco =        $_SESSION['dadosProdutos']['preco'];
             $desconto =     $_SESSION['dadosProdutos']['desconto'];
 
-            $form = "router.php?component=produtos&action=editar&id=" . $id;
+            $form = "router.php?component=produtos&action=editar&id=" . $id . "&imagem= " . $imagem;
 
             unset($_SESSION['dadosProdutos']);
         }
@@ -32,7 +33,7 @@
 <body>
     <div class="area-container">
         <div class="form-container">
-            <form action="router.php?component=produtos&action=inserir" name="frmProdutos" enctype="multipart/form-data" method="post">
+            <form action="<?=$form?>" name="frmProdutos" enctype="multipart/form-data" method="post">
                 
                 <div class="container-descricao linha">
                     <label>Descrição:</label>
@@ -41,9 +42,10 @@
 
                 <div class="container-foto linha">
                     <label>Selecione uma imagem:</label>
+                    <img src="<?=DIRECTORY_FILE_UPLOAD.$imagem?>" alt="" class="imagem-form">
                     <!-- enctype = multipart/form-data  é obrigatório para 
                     fazer upload de formatos de arquivos para o back-end -->
-                    <input type="file" name="fleFoto" accept=".jpg, .png, .jpeg, .gif" value="<?=isset($imagem)?$imagem:null?>">
+                    <input type="file" name="fleFoto" accept=".jpg, .png, .jpeg, .gif">
                 </div>
 
                 <div class="container-preco linha">
@@ -77,22 +79,22 @@
 
                     foreach($dados as $produto){
 
-                        $foto = $produto['imagem'];
+                        $imagem = $produto['imagem'];
 
                 ?>
                 <tr>
                     <td><?=$produto['descricao']?></td>
                     <td class="td-imagem">
-                        <img src="arquivos/<?=$foto?>" alt="">
+                        <img src="<?=DIRECTORY_FILE_UPLOAD.$imagem?>" alt="">
                         
                     </td>
                     <td><?=$produto['preco']?></td>
                     <td><?=$produto['desconto']?></td>
                     <td class="td-opcoes">
-                    <a onclick="return confirm('Deseja excluir o registro?')" href="router.php?component=produtos&action=deletar&id=<?=$produto['id']?>&image=<?=$foto?>">
+                    <a onclick="return confirm('Deseja excluir o registro?')" href="router.php?component=produtos&action=deletar&id=<?=$produto['id']?>&image=<?=$imagem?>">
                             <img src="img/lata-de-lixo.png" alt="" title="Excluir">
                         </a>
-                        <a href="router.php?component=produtos&action=buscar&id=<?=$produto['id']?>&image=<?=$foto?>">
+                        <a href="router.php?component=produtos&action=buscar&id=<?=$produto['id']?>">
                             <img src="img/editar.png" alt="" title="Editar">
                         </a>
                     </td>

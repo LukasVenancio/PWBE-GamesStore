@@ -295,6 +295,35 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET'){
 
             require_once('produtos.php');
 
+        }elseif($action == 'editar'){
+
+            $dadosGet = array(
+                "id"        => $_GET['id'],
+                "imagem"    => $_GET['imagem'],
+                "file"      => $_FILES
+            );
+
+            $dados = $_POST;
+
+            $resposta = atualizarProdutos($dados, $dadosGet);
+
+            if(is_bool($resposta)){
+
+                if($resposta){
+                    
+                    echo("<script>
+                            alert('Registro atualizado com sucesso!')
+                            window.location.href = 'produtos.php'
+                        </script>");
+                }
+
+            }elseif(is_array($resposta)){
+                    echo("<script>
+                            alert('".$resposta['message']."')
+                            window.history.back()
+                        </script>");
+                
+            }
         }
         
     }

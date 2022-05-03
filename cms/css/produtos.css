@@ -11,7 +11,7 @@
 form{
     display: flex;
     width: 30vw;
-    min-height: 60vh;
+    min-height: 67vh;
     border: 3px solid #9400D3;
     border-radius: 20px;
     flex-direction: column;
@@ -39,6 +39,17 @@ input{
     padding-left: 2%;
     margin-bottom: 5%;
 }
+.imagem-form{
+    width: 90px;
+    height: 90px;
+    margin-left: 35%;
+    border: 2px solid #9400D3;
+    border-radius: 10px;
+    object-fit: contain;
+}
+/* .container-foto{
+    margin-left: 8%;
+} */
 .container-foto input{
     border: none;
 }
