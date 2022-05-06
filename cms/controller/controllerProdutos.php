@@ -6,6 +6,7 @@
     function inserirProdutos($dados, $file){
 
         $resultadoUpload = (string) null;
+        $destaque = (int) 0;
 
         if(!empty($dados)){
 
@@ -22,12 +23,20 @@
 
                     if(!is_array($resultadoUpload)){
 
+                        if($dados['chbxDestaque']){
+                            
+                            if($dados['chbxDestaque'] == 'on'){
+                                $destaque = 1;
+                            }
+                        }
+
                         $arrayDados = array(
 
                             "descricao" => $dados['txtDescricao'],
-                            "imagem" => $resultadoUpload,
-                            "preco" => $dados['txtPreco'],
-                            "desconto" => $dados['txtDesconto']
+                            "imagem"    => $resultadoUpload,
+                            "preco"     => $dados['txtPreco'],
+                            "desconto"  => $dados['txtDesconto'],
+                            "destaque"  => $destaque
                         );
 
                         if(insertProdutos($arrayDados)){
@@ -115,9 +124,12 @@
 
     function atualizarProdutos($dados, $dadosGet){
 
+        $statusUpload = (boolean) false;
         $resultadoUpload = (string) null;
 
         $defaultImage = (string) null;
+
+        $destaque = (int) 0;
 
         $id = $dadosGet['id'];
         $imagem = $dadosGet['imagem'];
@@ -131,6 +143,7 @@
                 if($file['fleFoto']['name'] != null){
             
                     require_once('model/upload.php');
+                    $statusUpload = true;
 
                     /*Chamando a função da model que resgata a imagem.  */
                     $resultadoUpload = uploadFile($file['fleFoto']);
@@ -151,15 +164,29 @@
                     $defaultImage = $imagem;
                 }
 
+                if(isset($dados['chbxDestaque'])){
+
+                    if($dados['chbxDestaque'] == 'on'){
+                        $destaque = 1;
+                    }
+                }
+
+
                 $arrayDados = array(
                             "id"        => $id,
                             "descricao" => $dados['txtDescricao'],
                             "imagem"    => $defaultImage,
                             "preco"     => $dados['txtPreco'],
-                            "desconto"  => $dados['txtDesconto']
-                        );
+                            "desconto"  => $dados['txtDesconto'],
+                            "destaque"  => $destaque
+                            );
 
                 if(updateProdutos($arrayDados)){
+
+                    if($statusUpload){
+                        unlink(DIRECTORY_FILE_UPLOAD.$imagem);
+                    }
+
                     return true;
                 }else{
                     return array('idErro' => 1,

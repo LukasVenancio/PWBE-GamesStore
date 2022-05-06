@@ -19,7 +19,8 @@
                     "descricao" => $resultArray['descricao'],
                     "imagem"    => $resultArray['imagem'],
                     "preco"     => $resultArray['preco'],
-                    "desconto"  => $resultArray['desconto']
+                    "desconto"  => $resultArray['desconto'],
+                    "destaque"  => $resultArray['destaque']
                 );
 
                 $contador++;
@@ -36,11 +37,12 @@
         $resposta = (boolean) false;
 
         $conexao = conectarMysql();
-        $sql = "insert into tblprodutos(descricao, imagem, preco, desconto)
+        $sql = "insert into tblprodutos(descricao, imagem, preco, desconto, destaque)
                     values('". $dados['descricao']."',
                             '". $dados['imagem'] ."', 
                             ". $dados['preco'] .",
-                            ". $dados['desconto'] .");";
+                            ". $dados['desconto'] .",
+                            ". $dados['destaque'].");";
 
         if(mysqli_query($conexao, $sql)){
 
@@ -89,7 +91,8 @@
                     "descricao" => $resultArray['descricao'],
                     "imagem"    => $resultArray['imagem'],
                     "preco"     => $resultArray['preco'],
-                    "desconto"  => $resultArray['desconto']
+                    "desconto"  => $resultArray['desconto'],
+                    "destaque"  => $resultArray['destaque']
                 );
             }
         }
@@ -102,13 +105,14 @@
     function updateProdutos($dados){
 
         $response = (boolean) false;
-
+        
         $conexao = conectarMysql();
         $sql = "update tblprodutos set 
                     descricao ='".$dados['descricao']."', 
                     imagem='".$dados['imagem']."',
                     preco=".$dados['preco'].",
-                    desconto=".$dados['desconto']." 
+                    desconto=".$dados['desconto'].",
+                    destaque=".$dados['destaque']." 
                 where idproduto =".$dados['id'].";";
 
         if(mysqli_query($conexao, $sql)){

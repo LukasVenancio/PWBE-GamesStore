@@ -2,6 +2,7 @@
     require_once('./cms.php');
     require_once('./model/config.php');
 
+    $destaque = null;
     $imagem = (string) null;
 
     $form = "router.php?component=produtos&action=inserir";
@@ -15,6 +16,7 @@
             $imagem =       $_SESSION['dadosProdutos']['imagem'];
             $preco =        $_SESSION['dadosProdutos']['preco'];
             $desconto =     $_SESSION['dadosProdutos']['desconto'];
+            $destaque=      $_SESSION['dadosProdutos']['destaque'];
 
             $form = "router.php?component=produtos&action=editar&id=".$id."&imagem=".$imagem;
 
@@ -57,7 +59,10 @@
                     <label>Desconto:</label>
                     <input type="text" name="txtDesconto" value="<?=isset($desconto)?$desconto:null?>">
                 </div>
-
+                <div class="container-destaque linha">
+                    <label>Produto em destaque?</label>
+                    <input type="checkbox" name="chbxDestaque" class="inputDestaque" <?=$destaque == '1'?'checked':null?>>
+                </div>
                 <input type="submit" value="salvar" class="salvar">
             </form>
         </div>
@@ -69,6 +74,7 @@
                     <td>Imagem</td>
                     <td>Preço</td>
                     <td>Desconto</td>
+                    <td>Destaque</td>
                     <td>Opções</td>
                 </tr>
                 <?php
@@ -81,9 +87,6 @@
 
                         $imagem = $produto['imagem'];
 
-                        // var_dump($imagem);
-                        // die;
-
                 ?>
                 <tr>
                     <td><?=$produto['descricao']?></td>
@@ -95,6 +98,7 @@
                     </td>
                     <td><?=$produto['preco']?></td>
                     <td><?=$produto['desconto']?></td>
+                    <td><?=$produto['destaque'] == '1' ? 'sim':'não'?></td>
                     <td class="td-opcoes">
                     <a onclick="return confirm('Deseja excluir o registro?')" href="router.php?component=produtos&action=deletar&id=<?=$produto['id']?>&image=<?=$imagem?>">
                             <img src="img/lata-de-lixo.png" alt="" title="Excluir">
