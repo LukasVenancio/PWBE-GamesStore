@@ -232,14 +232,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET'){
     }elseif($component == 'produtos'){
 
         if($action == 'inserir'){
-            
-            // if(isset($_FILES) && !empty($_FILES)){
-
-            //     $resposta = inserirProdutos($_POST, $_FILES);
-            
-            // }else{
-            //     $resposta = inserirProdutos($_POST, null);
-            // }
 
             $resposta = inserirProdutos($_POST, $_FILES);
 

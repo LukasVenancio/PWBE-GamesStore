@@ -99,4 +99,27 @@
         return $dados;
     }
 
+    function updateProdutos($dados){
+
+        $response = (boolean) false;
+
+        $conexao = conectarMysql();
+        $sql = "update tblprodutos set 
+                    descricao ='".$dados['descricao']."', 
+                    imagem='".$dados['imagem']."',
+                    preco=".$dados['preco'].",
+                    desconto=".$dados['desconto']." 
+                where idproduto =".$dados['id'].";";
+
+        if(mysqli_query($conexao, $sql)){
+
+            if(mysqli_affected_rows($conexao)){
+                $response = true;
+            }
+        }
+        
+        fecharConexaoMysql($conexao);
+        return $response;
+    }
+
 ?>

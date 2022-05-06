@@ -19,6 +19,7 @@
                     /*Chamando a função da model que resgata a imagem.  */
                     $resultadoUpload = uploadFile($file['fleFoto']);
 
+
                     if(!is_array($resultadoUpload)){
 
                         $arrayDados = array(
@@ -116,6 +117,8 @@
 
         $resultadoUpload = (string) null;
 
+        $defaultImage = (string) null;
+
         $id = $dadosGet['id'];
         $imagem = $dadosGet['imagem'];
         $file = $dadosGet['file'];
@@ -134,34 +137,35 @@
 
                     if(!is_array($resultadoUpload)){
 
-                        $arrayDados = array(
-
-                            "descricao" => $dados['txtDescricao'],
-                            "imagem" => $resultadoUpload,
-                            "preco" => $dados['txtPreco'],
-                            "desconto" => $dados['txtDesconto']
-                        );
-
-                        if(insertProdutos($arrayDados)){
-                            return true;
-                        
-                        }else{
-                            return array('idErro' => 1,
-                                        'message' => 'Não foi possível inserir os dados no Data Base.');
-                        }
-
+                        $defaultImage = $resultadoUpload;
+                    
                     }else{
+                    
                         /*Caso aconteça algum erro no processo de upload,
-                        a função retorna um array com a mensagem de erro, esse
-                        array será retornado para a router que o exibirá.  */
-                        return $resultadoUpload;
+                         a função retorna um array com a mensagem de erro, esse
+                         array será retornado para a router que o exibirá.  */
+                         return $resultadoUpload;
                     }
                 
-                }else{
-                    return array('idErro' => 17,
-                                'message' => 'Uma imagem não foi selecionada.');
+                }elseif($imagem != null){
+                    $defaultImage = $imagem;
                 }
-            
+
+                $arrayDados = array(
+                            "id"        => $id,
+                            "descricao" => $dados['txtDescricao'],
+                            "imagem"    => $defaultImage,
+                            "preco"     => $dados['txtPreco'],
+                            "desconto"  => $dados['txtDesconto']
+                        );
+
+                if(updateProdutos($arrayDados)){
+                    return true;
+                }else{
+                    return array('idErro' => 1,
+                                'message' => 'Não foi possível inserir os dados no Data Base.');
+                }
+                
             }else{
                 return array('idErro' => 2,
                             'message' => 'Existem campos obrigatórios que não foram preenchidos.');

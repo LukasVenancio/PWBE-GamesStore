@@ -16,7 +16,7 @@
             $preco =        $_SESSION['dadosProdutos']['preco'];
             $desconto =     $_SESSION['dadosProdutos']['desconto'];
 
-            $form = "router.php?component=produtos&action=editar&id=" . $id . "&imagem= " . $imagem;
+            $form = "router.php?component=produtos&action=editar&id=".$id."&imagem=".$imagem;
 
             unset($_SESSION['dadosProdutos']);
         }
@@ -81,12 +81,17 @@
 
                         $imagem = $produto['imagem'];
 
+                        // var_dump($imagem);
+                        // die;
+
                 ?>
                 <tr>
                     <td><?=$produto['descricao']?></td>
                     <td class="td-imagem">
-                        <img src="<?=DIRECTORY_FILE_UPLOAD.$imagem?>" alt="">
+                        <?php
                         
+                        ?>
+                        <img src="<?=DIRECTORY_FILE_UPLOAD.$imagem?>" alt="">
                     </td>
                     <td><?=$produto['preco']?></td>
                     <td><?=$produto['desconto']?></td>
@@ -107,35 +112,4 @@
         </div>
     </div>
 </body>
-
-
-<!-- create table tblprodutos(
-
-	#int ==> tipo de dados
-    #not nul ==> é um atributo que não pode ficar vazio
-    #auto_increment ==> será gerenciado automaticamente pelo banco de dados
-    #primary key ==> chave principal
-	idproduto int not null auto_increment primary key,
-    
-    #varchar ==> equivalente a String
-    descricao varchar(100) not null,
-    
-    imagem varchar(50) not null,
-    
-	preco decimal(10) not null,
-    
-    desconto decimal(5)
-);
-
-alter table tblusuarios modify senha varchar(100) not null;
-show tables;
-
-#Comando para declarar os atributos que receberão os valores
-insert into tblprodutos(descricao, imagem, preco, desconto)
-	#valores que serão recebidos pelos atributos
-	values('Jogo Marvel Spider-Man: Miles Morales - PS4',
-			'ro0ot', 
-			10.0,
-            1); -->
-
 </html>

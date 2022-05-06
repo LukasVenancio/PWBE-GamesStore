@@ -51,7 +51,7 @@ require_once('model/config.php');
                     $nomeCriptografado = md5($nome . uniqid(time()));
 
                     /*Montando novamente o arquivo já com o nome criptografado. */
-                    $foto = $nomeCriptografado . "." . $extensao; 
+                    $foto = $nomeCriptografado . "." . $extensao;
 
                     /*Move o arquivo da pasta temporária do servidor para a pasta do projeto.*/
                     if(move_uploaded_file($tempFile, DIRECTORY_FILE_UPLOAD . $foto)){
