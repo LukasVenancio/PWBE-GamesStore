@@ -10,7 +10,7 @@
 
         if(!empty($dados)){
 
-            if(!empty($dados['txtDescricao']) && !empty($dados['txtPreco'])){
+            if(!empty($dados['txtDescricao']) && !empty($dados['txtPreco']) && !empty($dados['sltCategoria'])){
                 
                 /*Idenfica se o usuário tentou fazer um upload de uma imagem. */ 
                 if($file['fleFoto']['name'] != null){
@@ -32,11 +32,12 @@
 
                         $arrayDados = array(
 
-                            "descricao" => $dados['txtDescricao'],
-                            "imagem"    => $resultadoUpload,
-                            "preco"     => $dados['txtPreco'],
-                            "desconto"  => $dados['txtDesconto'],
-                            "destaque"  => $destaque
+                            "descricao"     => $dados['txtDescricao'],
+                            "imagem"        => $resultadoUpload,
+                            "preco"         => $dados['txtPreco'],
+                            "desconto"      => $dados['txtDesconto'],
+                            "destaque"      => $destaque,
+                            "idcategoria"   => $dados['sltCategoria']
                         );
 
                         if(insertProdutos($arrayDados)){
@@ -173,12 +174,13 @@
 
 
                 $arrayDados = array(
-                            "id"        => $id,
-                            "descricao" => $dados['txtDescricao'],
-                            "imagem"    => $defaultImage,
-                            "preco"     => $dados['txtPreco'],
-                            "desconto"  => $dados['txtDesconto'],
-                            "destaque"  => $destaque
+                            "id"            => $id,
+                            "descricao"     => $dados['txtDescricao'],
+                            "imagem"        => $defaultImage,
+                            "preco"         => $dados['txtPreco'],
+                            "desconto"      => $dados['txtDesconto'],
+                            "destaque"      => $destaque,
+                            "idcategoria"   => $dados['sltCategoria']
                             );
 
                 if(updateProdutos($arrayDados)){

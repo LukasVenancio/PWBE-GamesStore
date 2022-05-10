@@ -4,6 +4,7 @@
 
     $destaque = null;
     $imagem = (string) null;
+    $idCategoria = (string) null;
 
     $form = "router.php?component=produtos&action=inserir";
 
@@ -17,6 +18,7 @@
             $preco =        $_SESSION['dadosProdutos']['preco'];
             $desconto =     $_SESSION['dadosProdutos']['desconto'];
             $destaque=      $_SESSION['dadosProdutos']['destaque'];
+            $idCategoria=   $_SESSION['dadosProdutos']['idcategoria'];
 
             $form = "router.php?component=produtos&action=editar&id=".$id."&imagem=".$imagem;
 
@@ -59,11 +61,33 @@
                     <label>Desconto:</label>
                     <input type="text" name="txtDesconto" value="<?=isset($desconto)?$desconto:null?>">
                 </div>
+                <div class="container-categoria linha">
+                    <label>Categoria:</label>
+                    <select name="sltCategoria" id="">
+                        <option value="">Selecione um item</option>
+                        <?php
+                        
+                            require_once('controller/controllerCategorias.php');
+                            $listaCategorias = listarCategoria();
+
+                            foreach($listaCategorias as $option){
+
+                                ?>
+
+                                    <option value="<?=$option['id']?>" <?=$idCategoria == $option['id'] ? 'selected' : null ?>><?=$option['nome']?></option>
+
+                                <?php
+
+                            }
+                        
+                        ?>
+                    </select>
+                </div>
                 <div class="container-destaque linha">
                     <label>Produto em destaque?</label>
                     <input type="checkbox" name="chbxDestaque" class="inputDestaque" <?=$destaque == '1'?'checked':null?>>
                 </div>
-                <input type="submit" value="salvar" class="salvar">
+                <input type="submit" value="Salvar" class="salvar">
             </form>
         </div>
 
@@ -83,22 +107,21 @@
 
                     $dados = listarProdutos();
 
-                    foreach($dados as $produto){
+                    if($dados){
 
-                        $imagem = $produto['imagem'];
+                        foreach($dados as $produto){
+
+                            $imagem = $produto['imagem'];
 
                 ?>
                 <tr>
                     <td><?=$produto['descricao']?></td>
                     <td class="td-imagem">
-                        <?php
-                        
-                        ?>
                         <img src="<?=DIRECTORY_FILE_UPLOAD.$imagem?>" alt="">
                     </td>
                     <td><?=$produto['preco']?></td>
                     <td><?=$produto['desconto']?></td>
-                    <td><?=$produto['destaque'] == '1' ? 'sim':'não'?></td>
+                    <td><?=$produto['destaque'] == '1' ? 'Sim':'Não'?></td>
                     <td class="td-opcoes">
                     <a onclick="return confirm('Deseja excluir o registro?')" href="router.php?component=produtos&action=deletar&id=<?=$produto['id']?>&image=<?=$imagem?>">
                             <img src="img/lata-de-lixo.png" alt="" title="Excluir">
@@ -111,6 +134,7 @@
 
                 <?php
                     }
+                 }    
                 ?>
             </table>
         </div>

@@ -15,12 +15,13 @@
             while($resultArray = mysqli_fetch_assoc($result)){
 
                 $dados[$contador] = array(
-                    "id"        => $resultArray['idproduto'],
-                    "descricao" => $resultArray['descricao'],
-                    "imagem"    => $resultArray['imagem'],
-                    "preco"     => $resultArray['preco'],
-                    "desconto"  => $resultArray['desconto'],
-                    "destaque"  => $resultArray['destaque']
+                    "id"            => $resultArray['idproduto'],
+                    "descricao"     => $resultArray['descricao'],
+                    "imagem"        => $resultArray['imagem'],
+                    "preco"         => $resultArray['preco'],
+                    "desconto"      => $resultArray['desconto'],
+                    "destaque"      => $resultArray['destaque'],
+                    "idcategoria"   => $resultArray['idcategoria']
                 );
 
                 $contador++;
@@ -28,7 +29,13 @@
 
             fecharConexaoMysql($conexao);
 
-            return $dados;
+            if(isset($dados)){
+                return $dados;
+            
+            }else{
+                return false;
+            }
+            
         }
     }
 
@@ -37,12 +44,13 @@
         $resposta = (boolean) false;
 
         $conexao = conectarMysql();
-        $sql = "insert into tblprodutos(descricao, imagem, preco, desconto, destaque)
+        $sql = "insert into tblprodutos(descricao, imagem, preco, desconto, destaque, idcategoria)
                     values('". $dados['descricao']."',
                             '". $dados['imagem'] ."', 
                             ". $dados['preco'] .",
                             ". $dados['desconto'] .",
-                            ". $dados['destaque'].");";
+                            ". $dados['destaque'].",
+                            ". $dados['idcategoria'].");";
 
         if(mysqli_query($conexao, $sql)){
 
@@ -87,12 +95,13 @@
 
             if($resultArray = mysqli_fetch_assoc($result)){
                 $dados = array(
-                    "id"        => $resultArray['idproduto'],
-                    "descricao" => $resultArray['descricao'],
-                    "imagem"    => $resultArray['imagem'],
-                    "preco"     => $resultArray['preco'],
-                    "desconto"  => $resultArray['desconto'],
-                    "destaque"  => $resultArray['destaque']
+                    "id"            => $resultArray['idproduto'],
+                    "descricao"     => $resultArray['descricao'],
+                    "imagem"        => $resultArray['imagem'],
+                    "preco"         => $resultArray['preco'],
+                    "desconto"      => $resultArray['desconto'],
+                    "destaque"      => $resultArray['destaque'],
+                    "idcategoria"   => $resultArray['idcategoria']
                 );
             }
         }
@@ -112,7 +121,8 @@
                     imagem='".$dados['imagem']."',
                     preco=".$dados['preco'].",
                     desconto=".$dados['desconto'].",
-                    destaque=".$dados['destaque']." 
+                    destaque=".$dados['destaque'].", 
+                    idcategoria=".$dados['idcategoria']." 
                 where idproduto =".$dados['id'].";";
 
         if(mysqli_query($conexao, $sql)){

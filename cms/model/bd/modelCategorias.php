@@ -37,6 +37,7 @@ require_once('model/bd/conexaoMysql.php');
     }
 
     function insertCategoria($dadosCategoria){
+
         $resposta = (boolean) false;
         
         $conexao = conectarMysql();
@@ -126,8 +127,5 @@ require_once('model/bd/conexaoMysql.php');
 
         return $resposta;
     }
-
-
-
-
+    
 ?>
