@@ -1,6 +1,7 @@
 <?php
     require_once('./cms.php');
     require_once('./model/config.php');
+    require_once('./controller/controllerCategorias.php');
 
     $destaque = null;
     $imagem = (string) null;
@@ -32,6 +33,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/produtos.css">
+    <script src="js/imagePreview.js" defer></script>
     <title>Adm. Produtos</title>
 </head>
 <body>
@@ -45,11 +47,11 @@
                 </div>
 
                 <div class="container-foto linha">
-                    <label>Selecione uma imagem:</label>
-                    <img src="<?=DIRECTORY_FILE_UPLOAD.$imagem?>" alt="" class="imagem-form">
+                    <label for="image-input">Selecione uma imagem:</label>
+                    <img src="<?=DIRECTORY_FILE_UPLOAD.$imagem?>" alt="" class="imagem-form" id="image-container">
                     <!-- enctype = multipart/form-data  é obrigatório para 
                     fazer upload de formatos de arquivos para o back-end -->
-                    <input type="file" name="fleFoto" accept=".jpg, .png, .jpeg, .gif">
+                    <input type="file" name="fleFoto" accept=".jpg, .png, .jpeg, .gif" id="image-input">
                 </div>
 
                 <div class="container-preco linha">
@@ -99,6 +101,7 @@
                     <td>Preço</td>
                     <td>Desconto</td>
                     <td>Destaque</td>
+                    <td>Categoria</td>
                     <td>Opções</td>
                 </tr>
                 <?php
@@ -112,6 +115,7 @@
                         foreach($dados as $produto){
 
                             $imagem = $produto['imagem'];
+                            $categoria = buscarCategoria($produto['idcategoria']);
 
                 ?>
                 <tr>
@@ -122,8 +126,9 @@
                     <td><?=$produto['preco']?></td>
                     <td><?=$produto['desconto']?></td>
                     <td><?=$produto['destaque'] == '1' ? 'Sim':'Não'?></td>
+                    <td><?=$categoria['nome']?></td>
                     <td class="td-opcoes">
-                    <a onclick="return confirm('Deseja excluir o registro?')" href="router.php?component=produtos&action=deletar&id=<?=$produto['id']?>&image=<?=$imagem?>">
+                        <a onclick="return confirm('Deseja excluir o registro?')" href="router.php?component=produtos&action=deletar&id=<?=$produto['id']?>&image=<?=$imagem?>">
                             <img src="img/lata-de-lixo.png" alt="" title="Excluir">
                         </a>
                         <a href="router.php?component=produtos&action=buscar&id=<?=$produto['id']?>">
