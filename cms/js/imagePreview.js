@@ -2,7 +2,7 @@
 
 const loadImage = () =>{
 
-    imagePreview('modal-image-input', 'modal-image')
+    imagePreview('image-input', 'image-container')
 }
 
 const imagePreview = (idFile, idImage) =>{
@@ -18,6 +18,4 @@ const imagePreview = (idFile, idImage) =>{
 
 }
 
-export{
-    imagePreview
-}
+document.getElementById('image-input').addEventListener('change', loadImage)

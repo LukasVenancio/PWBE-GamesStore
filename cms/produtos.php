@@ -47,7 +47,7 @@
                 </div>
 
                 <div class="container-foto linha">
-                    <label for="image-input">Selecione uma imagem:</label>
+                    <label for="image-input" id="image-label">Selecione uma imagem:</label>
                     <img src="<?=DIRECTORY_FILE_UPLOAD.$imagem?>" alt="" class="imagem-form" id="image-container">
                     <!-- enctype = multipart/form-data  é obrigatório para 
                     fazer upload de formatos de arquivos para o back-end -->
