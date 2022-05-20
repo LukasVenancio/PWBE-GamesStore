@@ -2,10 +2,14 @@
 /*Arquuivo para segmentar as ações encaminhadas pela view.
 Será responsável por encaminhar as solicitações para a controller. */
 
+require_once('model/config.php');
+
 require_once('controller/controllerContatos.php');
 require_once('controller/controllerCategorias.php');
 require_once('controller/controllerUsuarios.php');
 require_once('controller/controllerProdutos.php');
+
+
 
 $action = (string) null;
 $component = (string) null;

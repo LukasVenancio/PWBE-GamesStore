@@ -1,5 +1,5 @@
 <?php
-    require_once('model/bd/conexaoMysql.php');
+    require_once(SRC . 'model/bd/conexaoMysql.php');
 
     function selectAllProdutos(){
 
@@ -108,7 +108,13 @@
 
         fecharConexaoMysql($conexao);
 
-        return $dados;
+        if($dados){
+            return $dados;
+        
+        }else{
+            return false;
+        }
+        
     }
 
     function updateProdutos($dados){

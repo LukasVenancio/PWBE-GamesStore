@@ -1,7 +1,7 @@
 <?php
 
-    require_once('model/bd/modelProdutos.php');
-    require_once('model/config.php');
+    require_once(SRC . 'model/bd/modelProdutos.php');
+    require_once(SRC . 'model/config.php');
 
     function inserirProdutos($dados, $file){
 
