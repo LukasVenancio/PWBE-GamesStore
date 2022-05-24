@@ -85,7 +85,7 @@
 
            if(deleteProduto($produto['id'])){
 
-                if(unlink(DIRECTORY_FILE_UPLOAD.$produto['image'])){
+                if(@unlink(SRC . DIRECTORY_FILE_UPLOAD.$produto['image'])){
                     return true;
                 
                 }else{

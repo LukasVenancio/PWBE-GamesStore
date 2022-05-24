@@ -108,7 +108,7 @@
 
         fecharConexaoMysql($conexao);
 
-        if($dados){
+        if(isset($dados)){
             return $dados;
         
         }else{
