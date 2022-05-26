@@ -237,10 +237,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET'){
 
         if($action == 'inserir'){
 
-            // var_dump($_POST);
-            // die;
+            $dados = array(
+                $_POST,
+                'file' => $_FILES
+            );
 
-            $resposta = inserirProdutos($_POST, $_FILES);
+            $resposta = inserirProdutos($dados);
 
             if(is_bool($resposta)){
 

@@ -2,7 +2,7 @@
 
 /*Responsável por realizar o upload de arquivos. */
 
-require_once('model/config.php');
+require_once(SRC . 'model/config.php');
 
     function uploadFile($arrayFile){
         
@@ -54,7 +54,7 @@ require_once('model/config.php');
                     $foto = $nomeCriptografado . "." . $extensao;
 
                     /*Move o arquivo da pasta temporária do servidor para a pasta do projeto.*/
-                    if(move_uploaded_file($tempFile, DIRECTORY_FILE_UPLOAD . $foto)){
+                    if(move_uploaded_file($tempFile, SRC . DIRECTORY_FILE_UPLOAD . $foto)){
 
                         return $foto;
                     

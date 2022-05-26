@@ -13,7 +13,7 @@
         $response:  Envia dados de retorno da API.
         $args:      Permite receber dados de atributos na API*/
 
-    /*EndPoint: requisicão para listar todos os contatos */
+    /*EndPoint: requisicão para listar todos os Produtos*/
     $app->get('/produtos', function($request, $response, $args){
 
         $dados = listarProdutos();
@@ -37,7 +37,7 @@
 
     });
 
-    /*EndPoint: requisicão para listar um contato pelo ID */
+    /*EndPoint: requisicão para listar um Produto pelo ID */
     $app->get('/produtos/{id}', function($request, $response, $args){
 
         /*Recebe a variável criada no EndPoint.*/
@@ -70,8 +70,65 @@
         
     });
     
-    /*EndPoint: requisicão para inserir um contato*/
+    /*EndPoint: requisicão para inserir um Produto*/
     $app->post('/produtos', function($request, $response, $args){
+
+        /*Recuperando o formato de dados do header da requisição.*/
+        $contentTypeHeader = $request->getHeaderLine('Content-Type');
+
+        /*Separa a variável em um array, contendo somente o formData.*/
+        $contentType = explode(";", $contentTypeHeader);
+
+        if($contentType[0] == 'multipart/form-data'){
+
+            /*Recupera os dados do body da requisiçõo.*/
+            $bodyData = $request->getParsedBody();
+
+            /*Recupera a imagem passada pelo body da requisiçõo.*/
+            $uploadFiles = $request->getUploadedFiles();
+        
+            /*Cria um array com os dados protegidos (que são recuperados 
+            através dos métodos) da imagem da requisição.*/
+            $arrayFoto = array("name"       =>  $uploadFiles['foto']->getClientFileName(),
+                                "type"      =>  $uploadFiles['foto']->getClientMediaType(),
+                                "size"      =>  $uploadFiles['foto']->getSize(),
+                                "tmp_name"  =>  $uploadFiles['foto']->file);
+
+            
+            /*Simula um objeto HTML que enviaria a imagem com chave 'foto',
+             de acordo com o que foi feito no arquivo Router. */                    
+            $file = array('foto' => $arrayFoto);
+
+            $dados = array(
+                $bodyData,
+                'file' => $file
+            );
+
+            $resposta = inserirProdutos($dados);
+
+            if(is_bool($resposta) && $resposta){
+
+                return $response    ->withStatus(201)
+                                    ->withHeader('Content-Type', 'application/json')
+                                    ->write('[{"message" : "Registro inserido com sucesso!"}]');
+            
+            }elseif(is_array($resposta) && isset($resposta['idErro'])){
+
+                return $response    ->withStatus(400)
+                                    ->withHeader('Content-Type', 'application/json')
+                                    ->write('[{"message":   "Não foi possível inserir o registro.",
+                                                "Erro:":    "'.$resposta['message'].'"}]');
+
+            }
+        
+        }elseif($contentType[0] == 'application/json'){
+
+        
+        }else{
+            return $response    ->withStatus(400)
+                                ->withHeader('Content-Type', 'application/json')
+                                ->write('[{"message" : "Formato de dados inválido."}]'); 
+        }
 
     });
 
@@ -100,7 +157,7 @@
                 if(is_bool($respostaController) && $respostaController){
 
                     return $response    ->withHeader('Content-Type', 'application/json')
-                                        ->write('"message": "Registro excluído com sucesso."')
+                                        ->write('[{"message": "Registro excluído com sucesso."}]')
                                         ->withStatus(200);                    
 
                 }elseif(is_array($respostaController)){
@@ -139,7 +196,6 @@
         }
 
     });
-
 
     $app->run();
 

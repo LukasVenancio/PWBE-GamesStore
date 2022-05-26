@@ -3,41 +3,43 @@
     require_once(SRC . 'model/bd/modelProdutos.php');
     require_once(SRC . 'model/config.php');
 
-    function inserirProdutos($dados, $file){
+    function inserirProdutos($dados){
 
         $resultadoUpload = (string) null;
         $destaque = (int) 0;
 
         if(!empty($dados)){
 
-            if(!empty($dados['txtDescricao']) && !empty($dados['txtPreco']) && !empty($dados['sltCategoria'])){
+            $file = $dados['file'];
+
+            if(!empty($dados[0]['descricao']) && !empty($dados[0]['preco']) && !empty($dados[0]['categoria'])){
                 
                 /*Idenfica se o usuário tentou fazer um upload de uma imagem. */ 
-                if($file['fleFoto']['name'] != null){
+                if($file['foto']['name'] != null){
             
-                    require_once('model/upload.php');
+                    require_once(SRC . 'model/upload.php');
 
                     /*Chamando a função da model que resgata a imagem.  */
-                    $resultadoUpload = uploadFile($file['fleFoto']);
+                    $resultadoUpload = uploadFile($file['foto']);
 
 
                     if(!is_array($resultadoUpload)){
 
-                        if($dados['chbxDestaque']){
+                        if($dados[0]['destaque']){
                             
-                            if($dados['chbxDestaque'] == 'on'){
+                            if($dados[0]['destaque'] == 'on'){
                                 $destaque = 1;
                             }
                         }
 
                         $arrayDados = array(
 
-                            "descricao"     => $dados['txtDescricao'],
+                            "descricao"     => $dados[0]['descricao'],
                             "imagem"        => $resultadoUpload,
-                            "preco"         => $dados['txtPreco'],
-                            "desconto"      => $dados['txtDesconto'],
+                            "preco"         => $dados[0]['preco'],
+                            "desconto"      => $dados[0]['desconto'],
                             "destaque"      => $destaque,
-                            "idcategoria"   => $dados['sltCategoria']
+                            "idcategoria"   => $dados[0]['categoria']
                         );
 
                         if(insertProdutos($arrayDados)){
@@ -138,16 +140,16 @@
 
         if(!empty($dados)){
 
-            if(!empty($dados['txtDescricao']) && !empty($dados['txtPreco'])){
+            if(!empty($dados['descricao']) && !empty($dados['preco'])){
                 
                 /*Idenfica se o usuário tentou fazer um upload de uma imagem. */ 
-                if($file['fleFoto']['name'] != null){
+                if($file['foto']['name'] != null){
             
-                    require_once('model/upload.php');
+                    require_once(SRC . 'model/upload.php');
                     $statusUpload = true;
 
                     /*Chamando a função da model que resgata a imagem.  */
-                    $resultadoUpload = uploadFile($file['fleFoto']);
+                    $resultadoUpload = uploadFile($file['foto']);
 
                     if(!is_array($resultadoUpload)){
 
@@ -165,9 +167,9 @@
                     $defaultImage = $imagem;
                 }
 
-                if(isset($dados['chbxDestaque'])){
+                if(isset($dados['destaque'])){
 
-                    if($dados['chbxDestaque'] == 'on'){
+                    if($dados['destaque'] == 'on'){
                         $destaque = 1;
                     }
                 }
@@ -175,12 +177,12 @@
 
                 $arrayDados = array(
                             "id"            => $id,
-                            "descricao"     => $dados['txtDescricao'],
+                            "descricao"     => $dados['descricao'],
                             "imagem"        => $defaultImage,
-                            "preco"         => $dados['txtPreco'],
-                            "desconto"      => $dados['txtDesconto'],
+                            "preco"         => $dados['preco'],
+                            "desconto"      => $dados['desconto'],
                             "destaque"      => $destaque,
-                            "idcategoria"   => $dados['sltCategoria']
+                            "idcategoria"   => $dados['categoria']
                             );
 
                 if(updateProdutos($arrayDados)){

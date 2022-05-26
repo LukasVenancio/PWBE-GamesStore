@@ -43,7 +43,7 @@
                 
                 <div class="container-descricao linha">
                     <label>Descrição:</label>
-                    <input type="text" name="txtDescricao" value="<?=isset($descricao)?$descricao:null?>">
+                    <input type="text" name="descricao" value="<?=isset($descricao)?$descricao:null?>">
                 </div>
 
                 <div class="container-foto linha">
@@ -51,21 +51,21 @@
                     <img src="<?=DIRECTORY_FILE_UPLOAD.$imagem?>" alt="" class="imagem-form" id="image-container">
                     <!-- enctype = multipart/form-data  é obrigatório para 
                     fazer upload de formatos de arquivos para o back-end -->
-                    <input type="file" name="fleFoto" accept=".jpg, .png, .jpeg, .gif" id="image-input">
+                    <input type="file" name="foto" accept=".jpg, .png, .jpeg, .gif" id="image-input">
                 </div>
 
                 <div class="container-preco linha">
                     <label>Preço:</label>
-                    <input type="text" name="txtPreco" value="<?=isset($preco)?$preco:null?>">
+                    <input type="text" name="preco" value="<?=isset($preco)?$preco:null?>">
                 </div>
 
                 <div class="container-desconto linha">
                     <label>Desconto:</label>
-                    <input type="text" name="txtDesconto" value="<?=isset($desconto)?$desconto:null?>">
+                    <input type="text" name="desconto" value="<?=isset($desconto)?$desconto:null?>">
                 </div>
                 <div class="container-categoria linha">
                     <label>Categoria:</label>
-                    <select name="sltCategoria" id="">
+                    <select name="categoria" id="">
                         <option value="">Selecione um item</option>
                         <?php
                         
@@ -87,7 +87,7 @@
                 </div>
                 <div class="container-destaque linha">
                     <label>Produto em destaque?</label>
-                    <input type="checkbox" name="chbxDestaque" class="inputDestaque" <?=$destaque == '1'?'checked':null?>>
+                    <input type="checkbox" name="destaque" class="inputDestaque" <?=$destaque == '1'?'checked':null?>>
                 </div>
                 <input type="submit" value="Salvar" class="salvar">
             </form>
