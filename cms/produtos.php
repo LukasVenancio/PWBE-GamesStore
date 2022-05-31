@@ -65,7 +65,7 @@
                 </div>
                 <div class="container-categoria linha">
                     <label>Categoria:</label>
-                    <select name="categoria" id="">
+                    <select name="idcategoria" id="">
                         <option value="">Selecione um item</option>
                         <?php
                         

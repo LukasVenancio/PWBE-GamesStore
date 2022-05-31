@@ -229,7 +229,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET'){
                             alert('".$resposta['message']."')
                             window.history.back()
                         </script>");
-                
             }
         }
     
@@ -298,15 +297,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET'){
 
         }elseif($action == 'editar'){
 
-            $dadosGet = array(
-                "id"        => $_GET['id'],
-                "imagem"    => $_GET['imagem'],
-                "file"      => $_FILES
+            $dados = array(
+                $_POST,
+                "file"          => $_FILES,
+                "id"            => $_GET['id'],
+                "imagemAntiga"  => $_GET['imagem'],
             );
 
-            $dados = $_POST;
-
-            $resposta = atualizarProdutos($dados, $dadosGet);
+            $resposta = atualizarProdutos($dados);
 
             if(is_bool($resposta)){
 

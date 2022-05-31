@@ -125,7 +125,10 @@
         }
     }
 
-    function atualizarProdutos($dados, $dadosGet){
+    function atualizarProdutos($dados){
+
+        //var_dump($dados['file']);
+        //die;
 
         $statusUpload = (boolean) false;
         $resultadoUpload = (string) null;
@@ -134,13 +137,13 @@
 
         $destaque = (int) 0;
 
-        $id = $dadosGet['id'];
-        $imagem = $dadosGet['imagem'];
-        $file = $dadosGet['file'];
+        $id = $dados['id'];
+        $imagem = $dados['imagemAntiga'];
+        $file = $dados['file'];
 
         if(!empty($dados)){
 
-            if(!empty($dados['descricao']) && !empty($dados['preco'])){
+            if(!empty($dados[0]['descricao']) && !empty($dados[0]['preco'])){
                 
                 /*Idenfica se o usuário tentou fazer um upload de uma imagem. */ 
                 if($file['foto']['name'] != null){
@@ -167,9 +170,9 @@
                     $defaultImage = $imagem;
                 }
 
-                if(isset($dados['destaque'])){
+                if(isset($dados[0]['destaque'])){
 
-                    if($dados['destaque'] == 'on'){
+                    if($dados[0]['destaque'] == 'on'){
                         $destaque = 1;
                     }
                 }
@@ -177,24 +180,27 @@
 
                 $arrayDados = array(
                             "id"            => $id,
-                            "descricao"     => $dados['descricao'],
+                            "descricao"     => $dados[0]['descricao'],
                             "imagem"        => $defaultImage,
-                            "preco"         => $dados['preco'],
-                            "desconto"      => $dados['desconto'],
+                            "preco"         => $dados[0]['preco'],
+                            "desconto"      => $dados[0]['desconto'],
                             "destaque"      => $destaque,
-                            "idcategoria"   => $dados['categoria']
+                            "idcategoria"   => $dados[0]['idcategoria']
                             );
+
+                //var_dump($arrayDados);
+                //die;
 
                 if(updateProdutos($arrayDados)){
 
                     if($statusUpload){
-                        unlink(DIRECTORY_FILE_UPLOAD.$imagem);
+                        unlink(SRC. DIRECTORY_FILE_UPLOAD . $imagem);
                     }
 
                     return true;
                 }else{
                     return array('idErro' => 1,
-                                'message' => 'Não foi possível inserir os dados no Data Base.');
+                                'message' => 'Não foi possível atualizar os dados no Data Base.');
                 }
                 
             }else{

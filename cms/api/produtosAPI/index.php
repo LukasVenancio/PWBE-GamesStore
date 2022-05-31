@@ -197,6 +197,94 @@
 
     });
 
+    /*EndPoint para atualizar um registro utilizando o post para que seja possível  enviar a imagem.*/
+    $app->post('/produtos/{id}', function($request, $response, $args){
+
+        if(is_numeric($args['id'])){
+
+            $id = $args['id'];
+            
+            $dadosProduto = buscarProdutos($id);
+
+            if(is_array($dadosProduto)){
+
+                $imagemAntiga = $dadosProduto['imagem'];
+
+                /*Recuperando o formato de dados do header da requisição.*/
+                $contentTypeHeader = $request->getHeaderLine('Content-Type');
+
+                /*Separa a variável em um array, contendo somente o formData.*/
+                $contentType = explode(";", $contentTypeHeader);
+
+                if($contentType[0] == 'multipart/form-data'){
+
+                    /*Recupera os dados do body da requisiçõo.*/
+                    $bodyData = $request->getParsedBody();
+
+                    /*Recupera a imagem passada pelo body da requisiçõo.*/
+                    $uploadFiles = $request->getUploadedFiles();
+                
+                    /*Cria um array com os dados protegidos (que são recuperados 
+                    através dos métodos) da imagem da requisição.*/
+                    $arrayFoto = array("name"       =>  $uploadFiles['foto']->getClientFileName(),
+                                        "type"      =>  $uploadFiles['foto']->getClientMediaType(),
+                                        "size"      =>  $uploadFiles['foto']->getSize(),
+                                        "tmp_name"  =>  $uploadFiles['foto']->file);
+
+                    
+                    /*Simula um objeto HTML que enviaria a imagem com chave 'foto',
+                    de acordo com o que foi feito no arquivo Router. */                    
+                    $file = array('foto' => $arrayFoto);
+
+                    $dados = array(
+                        $bodyData,
+                        'file'          => $file,
+                        'id'            =>  $id,
+                        'imagemAntiga'  => $imagemAntiga
+                    );
+
+                    $resposta = atualizarProdutos($dados);
+
+                    if(is_bool($resposta) && $resposta){
+
+                        return $response    ->withStatus(201)
+                                            ->withHeader('Content-Type', 'application/json')
+                                            ->write('[{"message" : "Registro atualizado com sucesso!"}]');
+                    
+                    }elseif(is_array($resposta) && isset($resposta['idErro'])){
+
+                        return $response    ->withStatus(400)
+                                            ->withHeader('Content-Type', 'application/json')
+                                            ->write('[{"message":   "Não foi possível inserir o registro.",
+                                                        "Erro:":    "'.$resposta['message'].'"}]');
+
+                    }
+                
+                }elseif($contentType[0] == 'application/json'){
+
+            
+                }else{
+                    return $response    ->withStatus(400)
+                                        ->withHeader('Content-Type', 'application/json')
+                                        ->write('[{"message" : "Formato de dados inválido."}]'); 
+                }
+
+            }else{
+
+                return $response ->withStatus(404)
+                                ->withHeader('Content-Type', 'application/json')
+                                ->write('[{"message" : "ID não encontrado na base de dados."}]');
+            }
+        
+        }else{
+
+            return $response    ->withStatus(404)
+                                ->withHeader('Content-Type', 'application/json')
+                                ->write('[{"message" : "ID inválido."}]');
+        }    
+
+    });
+
     $app->run();
 
 ?>
